@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respuesta sin esperar</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Respuesta sin esperar</h1>
+    <p>Esta página fue creada para evitar retrasos por no recibir el correo de respuesta por parte del sigof</p>
+
+    <input type="file" id="fileInput">
+    <button onclick="location.reload();">Recargar página</button>
+    <button id="processButton">Procesar</button>
+
+    <div id="actionButtons" style="display: none;">
+        <button onclick="s100Process()">S100</button>
+        <button onclick="fsuProcess()">FSU</button>
+    </div>
+
+    <script src="common.js"></script>
+<script src="s100processor.js"></script>
+<script src="fsuprocessor.js"></script>
+    <script>
+        document.getElementById('processButton').addEventListener('click', function() {
+            document.getElementById('actionButtons').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
