@@ -41,10 +41,16 @@
     function modifyText() {
       var textarea = document.getElementById('inputText');
       var text = textarea.value;
-      textarea.value = text.split('\n').map(line => {
+    
+      // Eliminar todos los espacios en blanco que no sean saltos de línea
+      var cleanedText = text.replace(/ /g, '');
+    
+      // Aplicar la transformación original a cada línea
+      textarea.value = cleanedText.split('\n').map(line => {
         if (line.length > 24) {
           return line.substring(24, 32);
         }
         return '';
       }).join('\n');
     }
+    
