@@ -12,7 +12,7 @@
 
         container.appendChild(document.createElement('br'));
 
-        var option1 = createRadioOption('Limpiar', 'S100', 'option');
+        var option1 = createRadioOption('Limpiar S100', 'S100', 'option');
         container.appendChild(option1.label);
         container.appendChild(option1.input);
 
@@ -47,8 +47,8 @@
     
       // Aplicar la transformación original a cada línea
       textarea.value = cleanedText.split('\n').map(line => {
-        if (line.length > 24) {
-          return line.substring(24, 32);
+        if (line.length > 10) {
+          return line.substring(11, 19);
         }
         return '';
       }).join('\n');

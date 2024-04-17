@@ -10,9 +10,9 @@ function fsuProcess() {
             alert("Por favor, cargue un archivo antes de procesar.");
         }
     } else if (response.toLowerCase() === "si") {
-        const number = prompt("¿Cuántas fichas FSU son consistentes?");
+        const number = prompt("¿Cuántas fichas FSU son inconsistentes?");
         const numberOfCodes = parseInt(number, 10);
-        console.log("Número de fichas FSU consistentes:", numberOfCodes);
+        console.log("Número de fichas FSU inconsistentes:", numberOfCodes);
         if (isNaN(numberOfCodes) || numberOfCodes <= 0) {
             console.error("Error: Número inválido ingresado.");
             alert("Por favor, ingrese un número válido mayor que cero.");
@@ -58,8 +58,7 @@ function analyzeFSUCodes() {
     const container = document.getElementById('fsuCodeInputsContainer');
     const inputs = container.querySelectorAll('input');
     const codes = Array.from(inputs).map(input => input.value.trim());
-    console.log("Códigos FSU para análisis:", codes);
-    
+
     if (!inputFile) {
         console.error("Error: No se ha cargado un archivo.");
         alert("Por favor, cargue un archivo antes de procesar.");
@@ -71,19 +70,25 @@ function analyzeFSUCodes() {
         let content = reader.result;
         console.log("Archivo leído para procesamiento.");
         
-        codes.forEach(code => {
-            if (code.match(/^\d{8}$/)) {
-                const regex = new RegExp("^.*" + code + ".*$", "gm");
-                content = content.replace(regex, ""); // Elimina las líneas que contienen el código
-            }
+        // Dividir el contenido en líneas y filtrar las líneas
+        const lines = content.split('\n');
+        const filteredLines = lines.filter(line => {
+            // Verificar si alguna de las letras 'R', 'E', 'V', 'H', 'F' preceden a alguno de los códigos
+            return codes.some(code => {
+                const regex = new RegExp("[REVHF]" + code);
+                return regex.test(line);
+            });
         });
 
-        const newFile = new Blob([content], { type: 'text/plain' });
-        console.log("Archivo procesado con códigos FSU eliminados.");
+        // Unir las líneas filtradas en un nuevo contenido
+        const newContent = filteredLines.join('\n');
+        const newFile = new Blob([newContent], { type: 'text/plain' });
+        console.log("Archivo procesado con códigos FSU según las reglas especificadas.");
         downloadFile(newFile, "FSU_RESPUESTA.dat");
     };
     reader.readAsText(inputFile);
 }
+
 
 function downloadFile(blob, filename) {
     const link = document.createElement('a');

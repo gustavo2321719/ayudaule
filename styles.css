@@ -104,3 +104,8 @@ p.creado{
     width: 30%;
     text-align: justify;
 }
+
+div#textAreaContainer{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
