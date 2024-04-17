@@ -1,19 +1,35 @@
+/* Estilos generales y colores de fondo */
 body {
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
-    color: white;
+    color: #fff;
     background-color: #333;
-    text-align: center;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
 
+h1 {
+    margin: 20px 0;
+}
+
+p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+/* Botones y entradas con estilo */
 button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
     background-color: #555;
+    color: #fff;
     border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
@@ -21,6 +37,70 @@ button:hover {
 }
 
 input[type="file"] {
-    margin: 10px;
-    padding: 5px;
+    margin: 20px;
+}
+
+/* Estilos para los botones de acción ocultos */
+#actionButtons {
+    margin: 20px 0;
+    margin-top: -5px;
+}
+
+@media (max-width: 600px) {
+    button {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    input[type="file"] {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+.file-upload-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+#customFileButton {
+    background-color: #444;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#customFileButton:hover {
+    background-color: #666;
+}
+
+div.botonProcesar{
+    width:auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+}
+
+#codeInputsContainer{
+    margin-top: 20px;
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color: rgb(43, 44, 46);
+    height: auto;
+    padding: 20px;
+    border-radius: 10px;
+    display: flexbox;
+    text-align: center;
+    
+}
+div.justificado{
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+p.creado{
+    width: 30%;
+    text-align: justify;
 }
