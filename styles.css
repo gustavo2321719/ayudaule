@@ -84,6 +84,19 @@ div.botonProcesar{
 
 }
 
+#fsuCodeInputsContainer{
+    margin-top: 20px;
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color: rgb(43, 44, 46);
+    height: auto;
+    padding: 20px;
+    border-radius: 10px;
+    display: flexbox;
+    text-align: center;
+    margin-bottom: 30px;
+    
+}
 #codeInputsContainer{
     margin-top: 20px;
     margin-left: 30%;
@@ -94,11 +107,13 @@ div.botonProcesar{
     border-radius: 10px;
     display: flexbox;
     text-align: center;
+    margin-bottom: 30px;
     
 }
 div.justificado{
     margin-top: 10px;
     margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 p.creado{
     width: 30%;
