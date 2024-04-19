@@ -4,7 +4,7 @@ body {
     padding: 0;
     font-family: Arial, sans-serif;
     color: #fff;
-    background-color: #333;
+    background: linear-gradient(to right, #471a90, #a070e2); width: 100%; height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -111,9 +111,9 @@ div.botonProcesar{
     
 }
 div.justificado{
-    margin-top: 10px;
-    margin-bottom: 50px;
-    margin-bottom: 30px;
+    margin-top: 20px;
+    margin-bottom: 100px;
+
 }
 p.creado{
     width: 30%;
@@ -121,6 +121,47 @@ p.creado{
 }
 
 div#textAreaContainer{
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 100px;
+
+}
+
+.colorUno{
+    background-color: #2f2e3d;
+}
+
+.colorDos{
+    color: #4b4b68;
+}
+
+.colorTres{
+    color: #555479;
+}
+
+.colorCuatro{
+    color: #636392;
+}
+
+.colorCinco{
+    color: #6f72a1;
+}
+
+.colorSeis{
+    color: #8187b0;
+}
+
+.colorSiete{
+    color: #9aa1c0;
+}
+
+.colorOcho{
+    color: #bbc0d5;
+}
+
+.colorNueve{
+    color: #d7dae6;
+}
+
+p.version{
+    position: absolute;
+    left: 20px;
 }

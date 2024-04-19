@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Respuesta sin espera</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="rosa-azul-aislado-en-blanco.ico">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
 
 </head>
 <body>
-    <div class="justificado"><button id="reloadButton"  onclick="location.reload();">Recargar página</button>
-    <button id="limpiezaButton">Limpiar texto de consistencia</button>
-    <a href="manual de la pagina de digitadores.pdf" target="_blank" style="text-decoration: none;"><button>Manual de uso</button></a></div>
+    <p class="version">version 1.0</p>
+    <div class="justificado"><button id="reloadButton" class="colorUno" onclick="location.reload();">Recargar página</button>
+    <button class="colorUno" id="limpiezaButton">Limpiar texto de consistencia</button>
+    <a href="manual de la pagina de digitadores.pdf" target="_blank" style="text-decoration: none;"><button class="colorUno" >Manual de uso</button></a></div>
     
     <h1>Respuesta sin espera</h1>
     <p class="creado">Esta página fue creada para evitar retrasos por no recibir el correo de respuesta por parte del sigof.</p>
@@ -33,11 +36,8 @@
         </div>
         
     <button id="processButton" style="display: none;">Procesar</button>
-    
-    
 </div>
-
-    
+  
 
     <script src="common.js"></script>
 <script src="s100processor.js"></script>
@@ -54,6 +54,5 @@
             document.getElementById('fileInput').click();
         });
     </script>
-    
 </body>
 </html>
