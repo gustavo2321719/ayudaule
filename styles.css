@@ -161,7 +161,11 @@ div#textAreaContainer{
     color: #d7dae6;
 }
 
-p.version{
+.version{
     position: absolute;
     left: 20px;
+}
+
+.arreglos{
+    font-size: 12px;
 }
