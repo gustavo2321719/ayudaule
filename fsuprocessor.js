@@ -55,10 +55,12 @@ function createInputsForFSUCodes(numberOfCodes) {
 }
 
 function analyzeFSUCodes() {
+    // Paso 1: Obtener los elementos de entrada
     const container = document.getElementById('fsuCodeInputsContainer');
     const inputs = container.querySelectorAll('input');
     const codes = Array.from(inputs).map(input => input.value.trim());
 
+    // Paso 2: Comprobación de archivo de entrada
     if (!inputFile) {
         console.error("Error: No se ha cargado un archivo.");
         alert("Por favor, cargue un archivo antes de procesar.");
@@ -69,25 +71,47 @@ function analyzeFSUCodes() {
     reader.onload = function() {
         let content = reader.result;
         console.log("Archivo leído para procesamiento.");
-        
-        // Dividir el contenido en líneas y filtrar las líneas
+
+        let removedLines = []; // Paso 7: Registro de líneas eliminadas
+
+        // Paso 4 y 5: Comprobación de contenido y verificación de códigos
         const lines = content.split('\n');
         const filteredLines = lines.filter(line => {
-            // Verificar si alguna de las letras 'R', 'E', 'V', 'H', 'F' preceden a alguno de los códigos
-            return codes.some(code => {
-                const regex = new RegExp("[REVHF]" + code);
-                return regex.test(line);
-            });
+            if (['R', 'E', 'V', 'H', 'F'].includes(line[0])) {
+                // Verificar si la línea cumple con la regla adicional
+                const codePrefix = line.substring(1, 9);
+                return codes.includes(codePrefix);
+            } else {
+                return true;
+            }
         });
 
-        // Unir las líneas filtradas en un nuevo contenido
+        // Paso 7: Registro de líneas eliminadas
+        removedLines = lines.filter(line => {
+            if (line.startsWith('R')) {
+                return !filteredLines.includes(line);
+            } else {
+                return false;
+            }
+        });
+
+        // Paso 8: Creación de un nuevo archivo
         const newContent = filteredLines.join('\n');
         const newFile = new Blob([newContent], { type: 'text/plain' });
-        console.log("Archivo procesado con códigos FSU según las reglas especificadas.");
+
+        // Paso 9: Descarga del archivo procesado
         downloadFile(newFile, "FSU_RESPUESTA.dat");
+
+        // Paso 7: Mostrar líneas eliminadas en la consola
+        console.log("Líneas eliminadas que empiezan por 'R':", removedLines);
     };
     reader.readAsText(inputFile);
 }
+
+
+
+
+
 
 
 function downloadFile(blob, filename) {
