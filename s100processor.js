@@ -96,7 +96,7 @@ function analyzeCodes2() {
         const codes = Array.from(document.querySelectorAll('input')).map(input => input.value.trim());
 
         // Verificación en el archivo de texto subido
-        content = content.replace(/^(R\d{8}.*|R(?:.*\D|^.{0,869}(?!\d{8})).*)0/gm, (match, p1) => {
+        content = content.replace(/^(R\d{8}.*|R(?!.*\d{8}).{861})0/gm, (match, p1) => {
             if (!codes.some(code => p1.includes(code))) {
                 count++;
                 return p1 + '1';
@@ -113,6 +113,8 @@ function analyzeCodes2() {
     };
     reader.readAsText(inputFile);
 }
+
+
 
 
 
