@@ -85,7 +85,7 @@ function analyzeCodes2(content, codes) {
 
     // Descarga del archivo modificado
     const newFile = new Blob([content], { type: 'text/plain' });
-    compressAndDownloadFile(newFile, "S100_RESPUESTA.dat");
+    compressAndDownloadFile(newFile, "S100_RESPUESTA.DAT");
 }
 
 // Función para ordenar líneas de texto basadas en los caracteres de la posición 2 al 8

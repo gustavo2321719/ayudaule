@@ -29,7 +29,7 @@ function processNoInconsistencies() {
     const modifiedContent = "R\nE\nV\nH\nF";
     const newFile = new Blob([modifiedContent], { type: 'text/plain' });
     console.log("Archivo modificado sin inconsistencias creado.");
-    downloadFile(newFile, "FSU_RESPUESTA.dat");
+    downloadFile(newFile, "FSU_RESPUESTA.DAT");
 }
 
 function createInputsForFSUCodes(numberOfCodes) {
@@ -100,7 +100,7 @@ function analyzeFSUCodes() {
         const newFile = new Blob([newContent], { type: 'text/plain' });
 
         // Paso 9: Descarga del archivo procesado
-        downloadFile(newFile, "FSU_RESPUESTA.dat");
+        downloadFile(newFile, "FSU_RESPUESTA.DAT");
 
         // Paso 7: Mostrar líneas eliminadas en la consola
         console.log("Líneas eliminadas que empiezan por 'R':", removedLines);
