@@ -40,13 +40,16 @@ function createInputsForCodes(numberOfCodes) {
 
     const button = document.createElement('button');
     button.textContent = 'Procesar';
-    button.onclick = analyzeCodes2;
+    button.onclick = function() {
+        const codes = Array.from(document.querySelectorAll('input')).map(input => input.value.trim());
+        readFileAndProcess(codes);
+    };
     container.appendChild(button);
 
     document.body.appendChild(container);
 }
-// ESTA FUNCION FUNCIONAAAAAAAA
-function analyzeCodes1() {
+
+function readFileAndProcess(codes) {
     if (!inputFile) {
         console.log("Error: No se ha cargado ningún archivo.");
         alert("Por favor, cargue un archivo antes de procesar.");
@@ -56,69 +59,53 @@ function analyzeCodes1() {
     const reader = new FileReader();
     reader.onload = function() {
         let content = reader.result;
-        let count = 0;
+        // Ordenar las líneas del archivo de texto
+        content = ordenarLineas(content);
+        // Procesar el texto ordenado
+        analyzeCodes2(content, codes);
+    };
+    reader.readAsText(inputFile);
+}
 
-        console.log("Verificando el archivo para cambios de '0' a '1'.");
+function analyzeCodes2(content, codes) {
+    let count = 0;
+    console.log("Verificando el archivo para cambios de '0' a '1'.");
 
-        // Verificación en el archivo de texto subido
-        content = content.replace(/^(R\d{8}.{861})0/gm, (match, p1) => {
+    // Verificación en el archivo de texto subido
+    content = content.replace(/^(R\d{8}.*|R(?!.*\d{8}).{861})0/gm, (match, p1) => {
+        if (!codes.some(code => p1.includes(code))) {
             count++;
             return p1 + '1';
-        });
+        } else {
+            return match; // No se modifica la línea si contiene un código de 8 dígitos
+        }
+    });
 
-        console.log("Cantidad de '0' cambiados por '1':", count);
+    console.log("Cantidad de '0' cambiados por '1':", count);
 
-        // Descarga del archivo modificado
-        const newFile = new Blob([content], { type: 'text/plain' });
-        compressAndDownloadFile(newFile, "S100_RESPUESTA.dat");
-    };
-    reader.readAsText(inputFile);
+    // Descarga del archivo modificado
+    const newFile = new Blob([content], { type: 'text/plain' });
+    compressAndDownloadFile(newFile, "S100_RESPUESTA.dat");
 }
 
-
-
-
-function analyzeCodes2() {
-    if (!inputFile) {
-        console.log("Error: No se ha cargado ningún archivo.");
-        alert("Por favor, cargue un archivo antes de procesar.");
-        return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function() {
-        let content = reader.result;
-        let count = 0;
-
-        console.log("Verificando el archivo para cambios de '0' a '1'.");
-
-        // Obtener códigos de 8 dígitos ingresados por el usuario
-        const codes = Array.from(document.querySelectorAll('input')).map(input => input.value.trim());
-
-        // Verificación en el archivo de texto subido
-        content = content.replace(/^(R\d{8}.*|R(?!.*\d{8}).{861})0/gm, (match, p1) => {
-            if (!codes.some(code => p1.includes(code))) {
-                count++;
-                return p1 + '1';
-            } else {
-                return match; // No se modifica la línea si contiene un código de 8 dígitos
-            }
-        });
-
-        console.log("Cantidad de '0' cambiados por '1':", count);
-
-        // Descarga del archivo modificado
-        const newFile = new Blob([content], { type: 'text/plain' });
-        compressAndDownloadFile(newFile, "S100_RESPUESTA.dat");
-    };
-    reader.readAsText(inputFile);
+// Función para ordenar líneas de texto basadas en los caracteres de la posición 2 al 8
+function ordenarLineas(texto) {
+    // Dividir el texto en líneas
+    var lineas = texto.split('\n');
+    
+    // Ordenar las líneas basadas en los caracteres de la posición 2 al 8
+    lineas.sort(function(a, b) {
+        var substrA = a.substring(1, 9); // Obtener los caracteres de la posición 2 al 8 de la línea A
+        var substrB = b.substring(1, 9); // Obtener los caracteres de la posición 2 al 8 de la línea B
+        return substrA.localeCompare(substrB); // Comparar las subcadenas de manera alfabética
+    });
+    
+    // Unir las líneas ordenadas nuevamente en un solo texto
+    var textoOrdenado = lineas.join('\n');
+    
+    // Devolver el texto ordenado
+    return textoOrdenado;
 }
-
-
-
-
-
-
 
 function compressAndDownloadFile(blob, filename) {
     const link = document.createElement('a');
