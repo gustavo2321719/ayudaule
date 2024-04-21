@@ -34,7 +34,7 @@ function createInputsForCodes(numberOfCodes) {
         input.placeholder = `Código #${i + 1} (8 dígitos)`;
         input.style.margin = '10px';
         input.maxLength = 8;
-        input.size = 10;
+        input.size = 12;
         container.appendChild(input);
     }
 

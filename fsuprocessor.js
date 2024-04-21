@@ -42,7 +42,7 @@ function createInputsForFSUCodes(numberOfCodes) {
         input.placeholder = `Código FSU #${i + 1} (8 dígitos)`;
         input.style.margin = '10px';
         input.maxLength = 8;
-        input.size = 10;
+        input.size = 12;
         container.appendChild(input);
     }
     const button = document.createElement('button');
