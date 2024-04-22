@@ -71,6 +71,9 @@ function analyzeCodes2(content, codes) {
     let count = 0;
     console.log("Verificando el archivo para cambios de '0' a '1'.");
 
+    // Ordenar las líneas del archivo de texto
+    content = ordenarLineas(content);
+
     // Verificación en el archivo de texto subido
     content = content.replace(/^(R\d{8}.*|R(?!.*\d{8}).{861})0/gm, (match, p1) => {
         if (!codes.some(code => p1.includes(code))) {
@@ -83,10 +86,22 @@ function analyzeCodes2(content, codes) {
 
     console.log("Cantidad de '0' cambiados por '1':", count);
 
-    // Descarga del archivo modificado
-    const newFile = new Blob([content], { type: 'text/plain' });
-    compressAndDownloadFile(newFile, "S100_RESPUESTA.DAT");
+    // Sobrescribir el contenido del archivo original
+    const reader = new FileReader();
+    reader.onload = function() {
+        const originalBuffer = reader.result;
+        const modifiedBuffer = new ArrayBuffer(content.length);
+        const modifiedView = new Uint8Array(modifiedBuffer);
+        for (let i = 0; i < content.length; ++i) {
+            modifiedView[i] = content.charCodeAt(i);
+        }
+        const newFile = new Blob([modifiedBuffer], { type: 'text/plain' });
+        compressAndDownloadFile(newFile, "S100_RESPUESTA.DAT");
+    };
+    reader.readAsArrayBuffer(inputFile);
 }
+
+
 
 // Función para ordenar líneas de texto basadas en los caracteres de la posición 2 al 8
 function ordenarLineas(texto) {
@@ -99,10 +114,8 @@ function ordenarLineas(texto) {
         var substrB = b.substring(1, 9); // Obtener los caracteres de la posición 2 al 8 de la línea B
         return substrA.localeCompare(substrB); // Comparar las subcadenas de manera alfabética
     });
-    
     // Unir las líneas ordenadas nuevamente en un solo texto
     var textoOrdenado = lineas.join('\n');
-    
     // Devolver el texto ordenado
     return textoOrdenado;
 }

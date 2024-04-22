@@ -72,32 +72,22 @@ function analyzeFSUCodes() {
         let content = reader.result;
         console.log("Archivo leído para procesamiento.");
 
-        let removedLines = []; // Paso 7: Registro de líneas eliminadas
+        // Paso 3: Ordenar las líneas del archivo
+        content = ordenarLineas(content);
 
         // Paso 4 y 5: Comprobación de contenido y verificación de códigos
-        const lines = content.split('\n');
-        const filteredLines = lines.filter(line => {
-            if (['R', 'E', 'V', 'H', 'F'].includes(line[0])) {
-                // Verificar si la línea cumple con la regla adicional
-                const codePrefix = line.substring(1, 9);
-                return codes.includes(codePrefix);
+        let removedLines = [];
+        content = content.replace(/^(R\d{8}.*|R(?!.*\d{8}).{861})0/gm, (match, p1) => {
+            if (!codes.some(code => p1.includes(code))) {
+                removedLines.push(p1); // Paso 7: Registro de líneas eliminadas
+                return p1 + '1';
             } else {
-                return true;
-            }
-        });
-
-        // Paso 7: Registro de líneas eliminadas
-        removedLines = lines.filter(line => {
-            if (line.startsWith('R')) {
-                return !filteredLines.includes(line);
-            } else {
-                return false;
+                return match;
             }
         });
 
         // Paso 8: Creación de un nuevo archivo
-        const newContent = filteredLines.join('\n');
-        const newFile = new Blob([newContent], { type: 'text/plain' });
+        const newFile = new Blob([content], { type: 'text/plain' });
 
         // Paso 9: Descarga del archivo procesado
         downloadFile(newFile, "FSU_RESPUESTA.DAT");
@@ -107,6 +97,7 @@ function analyzeFSUCodes() {
     };
     reader.readAsText(inputFile);
 }
+
 
 
 
