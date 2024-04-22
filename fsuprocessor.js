@@ -72,33 +72,42 @@ function analyzeFSUCodes() {
         let content = reader.result;
         console.log("Archivo leído para procesamiento.");
 
-        // Paso 3: Ordenar las líneas del archivo
-        content = ordenarLineas(content);
+        let removedLines = []; // Paso 7: Registro de líneas eliminadas
 
         // Paso 4 y 5: Comprobación de contenido y verificación de códigos
-        let removedLines = [];
-        content = content.replace(/^(R\d{8}.*|R(?!.*\d{8}).{861})0/gm, (match, p1) => {
-            if (!codes.some(code => p1.includes(code))) {
-                removedLines.push(p1); // Paso 7: Registro de líneas eliminadas
-                return p1 + '1';
+        const lines = content.split('\n');
+        const filteredLines = lines.filter(line => {
+            if (['R', 'E', 'V', 'H', 'F'].includes(line[0])) {
+                // Verificar si la línea cumple con la regla adicional
+                const codePrefix = line.substring(1, 9);
+                return codes.includes(codePrefix);
             } else {
-                return match;
+                return true;
             }
         });
 
-        // Paso 8: Creación de un nuevo archivo
-        const newFile = new Blob([content], { type: 'text/plain' });
+        // Paso 7: Registro de líneas eliminadas
+        removedLines = lines.filter(line => {
+            if (line.startsWith('R')) {
+                return !filteredLines.includes(line);
+            } else {
+                return false;
+            }
+        });
 
-        // Paso 9: Descarga del archivo procesado
-        downloadFile(newFile, "FSU_RESPUESTA.DAT");
+        // Modificar el contenido original en lugar de crear un nuevo archivo
+        content = filteredLines.join('\n');
+        // Sobreescribir el archivo original
+        const modifiedBlob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(modifiedBlob);
+        // Descargar el archivo modificado
+        downloadFile(modifiedBlob, "FSU_RESPUESTA.DAT");
 
         // Paso 7: Mostrar líneas eliminadas en la consola
         console.log("Líneas eliminadas que empiezan por 'R':", removedLines);
     };
     reader.readAsText(inputFile);
 }
-
-
 
 
 
