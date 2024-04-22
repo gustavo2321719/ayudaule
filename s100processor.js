@@ -101,9 +101,6 @@ function analyzeCodes2(content, codes) {
     reader.readAsArrayBuffer(inputFile);
 }
 
-
-
-// Función para ordenar líneas de texto basadas en los caracteres de la posición 2 al 8
 function ordenarLineas(texto) {
     // Dividir el texto en líneas
     var lineas = texto.split('\n');
@@ -130,4 +127,32 @@ function compressAndDownloadFile(blob, filename) {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
     console.log("Archivo descargado:", filename);
+}
+
+function analyzeCodes1() {
+    if (!inputFile) {
+        console.log("Error: No se ha cargado ningún archivo.");
+        alert("Por favor, cargue un archivo antes de procesar.");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function() {
+        let content = reader.result;
+        // Modificar las líneas que cumplan con el patrón especificado
+        content = content.replace(/^(R\d{8}.*0)/gm, (match, p1) => {
+            return p1.replace(/0$/, '1'); // Reemplazar el último '0' por '1'
+        });
+
+        // Sobrescribir el contenido del archivo original
+        const originalBuffer = reader.result;
+        const modifiedBuffer = new ArrayBuffer(content.length);
+        const modifiedView = new Uint8Array(modifiedBuffer);
+        for (let i = 0; i < content.length; ++i) {
+            modifiedView[i] = content.charCodeAt(i);
+        }
+        const newFile = new Blob([modifiedBuffer], { type: 'text/plain' });
+        compressAndDownloadFile(newFile, "S100_RESPUESTA.DAT");
+    };
+    reader.readAsText(inputFile);
 }
