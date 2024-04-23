@@ -6,21 +6,33 @@
     <title>Respuesta sin espera</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="rosa-azul-aislado-en-blanco.ico">
-
+<link rel="stylesheet" href="acordeon.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.6.0/jszip.min.js"></script>
 
 </head>
 <body>
-    <div class="version"><p>version 3.1</p>
-       <p class="arreglos"> por ahora todo funciona :)</p>
+    <div class="version">
+       <div class="seccion">
+        <div class="titulo">
+         <p class="titulo">Version 3.1<img class="cruz" src="angulo-de-la-flecha-apuntando-hacia-la-derecha.png" width="20" height="20"></p>
+        </div>
+      
+        <div class="informacion">
+         <p class="informacion">Por el momento, todo funciona, si encuentras algún error, avisa :v</p>
+         <br>
+        </div>
+       </div>
     </div>
+
+
+
     <div class="justificado">
-    <button  id="limpiezaButton">Limpiar texto de consistencia</button>
+    <button  id="limpiezaButton" class="oculto">Limpiar texto de consistencia</button>
     <a href="manual de la pagina de digitadores.pdf" target="_blank" style="text-decoration: none;"><button  class="oculto">Manual de uso</button></a></div>
-    
+    <div class="texto">
     <h1>Respuesta sin espera</h1>
     <p class="creado">Esta página fue creada para evitar retrasos por no recibir el correo de respuesta por parte del sigof.</p>
-
+</div>
         <div class="botonProcesar" style="margin-top: 50px;">
             <div class="file-upload-wrapper">
                 <input type="file" id="fileInput" hidden>

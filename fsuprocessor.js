@@ -10,7 +10,7 @@ function fsuProcess() {
             alert("Por favor, cargue un archivo antes de procesar.");
         }
     } else if (response.toLowerCase() === "si") {
-        const number = prompt("¿Cuántas fichas FSU son inconsistentes?");
+        const number = prompt("Indique la cantidad de fichas inconsistentes que presenta su archivo");
         const numberOfCodes = parseInt(number, 10);
         console.log("Número de fichas FSU inconsistentes:", numberOfCodes);
         if (isNaN(numberOfCodes) || numberOfCodes <= 0) {

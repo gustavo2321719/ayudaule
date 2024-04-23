@@ -3,7 +3,7 @@ function s100Process() {
     if (inconsistentResponse.toLowerCase() === "no") {
         analyzeCodes1();
     } else if (inconsistentResponse.toLowerCase() === "si") {
-        const number = prompt("Solicitar Número de Fichas Inconsistentes:");
+        const number = prompt("Indique la cantidad de Fichas Inconsistentes:");
         console.log("Número ingresado:", number);
         if (number === "0") {
             alert("Error: Por favor, ingrese un número válido mayor que cero.");

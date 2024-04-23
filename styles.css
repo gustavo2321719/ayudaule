@@ -12,7 +12,7 @@ body {
 }
 
 h1 {
-    margin: 20px 0;
+    margin: 10px 0;
 }
 
 p {
@@ -64,6 +64,7 @@ input[type="file"] {
 
 #customFileButton {
     background-color: #444;
+    font-size: 20px;
     color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
@@ -116,20 +117,19 @@ div.justificado{
 
 }
 p.creado{
-    width: 30%;
-    text-align: justify;
+    text-align: center;
+    margin: 10px;
 }
 
 div#textAreaContainer{
-    margin-top: 100px;
+    margin-top: 50px;
 
 }
-
 
 
 .version{
     position: absolute;
-    left: 20px;
+    left: 0px;
 }
 
 .arreglos{
@@ -139,3 +139,16 @@ div#textAreaContainer{
 
 .oculto{
 display: none;}
+
+
+.texto{
+    border-radius: 20px;
+    background-color: #4d4b4b;
+    display: grid;
+    filter: blur();
+    width: 400px;
+    height: auto;
+    justify-items: center;
+    padding: 20px;
+}
+    
